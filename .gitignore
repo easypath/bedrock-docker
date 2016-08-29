@@ -1,0 +1,5 @@
+.DS_Store
+# MariaDB database
+/db
+# Bedrock installation
+/site
