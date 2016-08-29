@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb:latest
+    volumes:
+      - "./db:/var/lib/mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+
+  php:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile-php7fpm
+    image: easypath/php7-fpm:latest
+    volumes:
+      - ./site:/webapps/bedrock
+
+  nginx:
+    depends_on:
+      - php
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    image: easypath/nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/sites-available:/etc/nginx/sites-available
+      - ./site:/webapps/bedrock
+    links:
+        - php

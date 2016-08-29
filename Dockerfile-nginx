@@ -1,0 +1,29 @@
+# NGINX
+FROM nginx:latest
+MAINTAINER EasyPath IT Solutions Inc. <info@easypath.ca>
+
+# Environment variables
+ENV nginx_dir /etc/nginx
+ENV nginx_conf bedrock.conf
+ENV web_root /webapps/bedrock
+
+# Install OS utilities
+RUN apt-get update
+RUN apt-get -y install \
+  iputils-ping \
+  net-tools
+
+# Remove default NGINX config
+RUN rm -rf ${nginx_dir}/conf.d
+
+# Create required directories & files
+RUN mkdir -p ${web_root}/logs
+RUN touch ${web_root}/logs/access.log
+RUN touch ${web_root}/logs/error.log
+
+# Add 'sites-available' and 'sites-enabled' to NGINX config
+RUN mkdir ${nginx_dir}/sites-available
+RUN mkdir ${nginx_dir}/sites-enabled
+RUN sed -i '$ i\    include /etc/nginx/sites-enabled/*;' ${nginx_dir}/nginx.conf
+COPY ./nginx/sites-available/${nginx_conf} /etc/nginx/sites-available/
+RUN ln -sf ${nginx_dir}/sites-available/${nginx_conf} ${nginx_dir}/sites-enabled/${nginx_conf}
