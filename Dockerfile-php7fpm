@@ -8,7 +8,9 @@ RUN apt-get -y install \
   curl \
   iputils-ping \
   net-tools \
-  git
+  git \
+  zip \
+  unzip
 
 # Install Composer
 ENV composer_tmp_dir /tmp/composer
