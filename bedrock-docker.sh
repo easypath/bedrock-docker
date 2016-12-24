@@ -3,7 +3,7 @@
 # Usage bedrock-docker.sh <domain_name>
 
 # Clone latest Bedrock Docker
-git clone https://github.com/easypath/bedrock-docker.git $1 && rm -rf $1/.git
+git clone https://github.com/thedgmbh/bedrock-docker.git $1 && rm -rf $1/.git
 
 # Clone latest Bedrock
 git clone --depth=1 https://github.com/roots/bedrock.git $1/site && rm -rf $1/site/.git
@@ -14,6 +14,7 @@ DB_NAME=wordpress
 DB_USER=wordpress
 DB_PASSWORD=password
 DB_HOST=db:3306
+DB_PREFIX=bd_
 WP_ENV=development
 WP_HOME=http://localhost:8080
 
@@ -24,7 +25,8 @@ mv $1/site/.env.example $1/site/$DB_FILE
 sed -i -e "s,DB_NAME=database_name,DB_NAME=$DB_NAME,g" $1/site/$DB_FILE
 sed -i -e "s,DB_USER=database_user,DB_USER=$DB_USER,g" $1/site/$DB_FILE
 sed -i -e "s,DB_PASSWORD=database_password,DB_PASSWORD=$DB_PASSWORD,g" $1/site/$DB_FILE
-sed -i -e "s,DB_HOST=database_host,DB_HOST=$DB_HOST,g" $1/site/$DB_FILE
+sed -i -e "s,# DB_HOST=localhost,DB_HOST=$DB_HOST,g" $1/site/$DB_FILE
+sed -i -e "s,# DB_PREFIX=wp_,DB_PREFIX=$DB_PREFIX,g" $1/site/$DB_FILE
 sed -i -e "s,WP_ENV=development,WP_ENV=$WP_ENV,g" $1/site/$DB_FILE
 sed -i -e "s,WP_HOME=http://example.com,WP_HOME=$WP_HOME,g" $1/site/$DB_FILE
 
