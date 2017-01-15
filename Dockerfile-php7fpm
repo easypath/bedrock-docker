@@ -42,4 +42,4 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli
 
 WORKDIR "cd /webapps/bedrock"
-RUN composer install
+RUN composer install --no-interaction
