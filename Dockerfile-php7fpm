@@ -41,5 +41,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install mysqli
 
-WORKDIR /webapps/bedrock
-CMD composer install --no-interaction
+WORKDIR /tmp
+COPY ./site/composer.json ./site/composer.lock ./
+RUN composer install --no-interaction
+CMD ["cp /tmp/* /webapps/bedrock/"]

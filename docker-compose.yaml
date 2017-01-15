@@ -6,11 +6,8 @@ services:
     volumes:
       - "./db:/var/lib/mysql"
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
+    env_file:
+      - .env
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
@@ -29,7 +26,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-php7fpm
-    image: easypath/php7-fpm:latest
     volumes:
       - ./site:/webapps/bedrock
 
@@ -39,7 +35,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-nginx
-    image: easypath/nginx:latest
     ports:
       - "8080:80"
     volumes:
