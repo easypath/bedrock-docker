@@ -1,6 +1,6 @@
 # PHP7-FPM
 FROM php:7-fpm
-MAINTAINER EasyPath IT Solutions Inc. <info@easypath.ca>
+MAINTAINER The D. GmbH. <info@thed.io>
 
 # Install OS utilities
 RUN apt-get update
@@ -41,5 +41,5 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install mysqli
 
-WORKDIR "cd /webapps/bedrock"
+WORKDIR /webapps/bedrock
 CMD composer install --no-interaction

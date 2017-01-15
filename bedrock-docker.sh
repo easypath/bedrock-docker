@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright EasyPath IT Solutions Inc.
+# Copyright The D. GmbH
 # Usage bedrock-docker.sh <domain_name>
 
 # Clone latest Bedrock Docker
