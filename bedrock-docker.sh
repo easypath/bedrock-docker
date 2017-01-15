@@ -8,13 +8,23 @@ git clone https://github.com/thedgmbh/bedrock-docker.git $1 && rm -rf $1/.git
 # Clone latest Bedrock
 git clone --depth=1 https://github.com/roots/bedrock.git $1/site && rm -rf $1/site/.git
 
+# Read user wordpress connection input
+echo "Enter your database name [ENTER]: "
+read -r db_name
+echo "Enter your database username [ENTER]: "
+read -r db_user
+echo "Enter your database password [ENTER]: "
+read -r db_pass
+echo "Enter your database prefix [ENTER]: "
+read -r db_prefix
+
 # WordPress database connection details
 DB_FILE=.env
-DB_NAME=wordpress
-DB_USER=wordpress
-DB_PASSWORD=password
+DB_NAME=$db_name
+DB_USER=$db_user
+DB_PASSWORD=$db_pass
 DB_HOST=db:3306
-DB_PREFIX=bd_
+DB_PREFIX=$db_prefix
 WP_ENV=development
 WP_HOME=http://localhost:8080
 
