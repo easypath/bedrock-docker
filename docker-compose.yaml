@@ -6,19 +6,26 @@ services:
     volumes:
       - "./db:/var/lib/mysql"
     restart: always
+    env_file:
+      - .env
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
-
+     - PMA_ARBITRARY=1
+    restart: always
+    ports:
+     - 2333:80
+    volumes:
+     - /sessions
+    links:
+      - db:db
   php:
     depends_on:
       - db
     build:
       context: .
       dockerfile: Dockerfile-php7fpm
-    image: easypath/php7-fpm:latest
     volumes:
       - ./site:/webapps/bedrock
 
@@ -28,7 +35,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-nginx
-    image: easypath/nginx:latest
     ports:
       - "8080:80"
     volumes:

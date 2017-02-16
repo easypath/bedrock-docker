@@ -1,6 +1,6 @@
 # NGINX
 FROM nginx:latest
-MAINTAINER EasyPath IT Solutions Inc. <info@easypath.ca>
+MAINTAINER The D. GmbH. <info@thed.io>
 
 # Environment variables
 ENV nginx_dir /etc/nginx
